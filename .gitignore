@@ -1,0 +1,8 @@
+.turbo
+.idea
+
+node_modules
+
+.env
+.env.dev
+.env.production
