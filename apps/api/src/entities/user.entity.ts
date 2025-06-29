@@ -5,7 +5,12 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   Index,
+  ManyToOne,
+  JoinColumn,
+  OneToOne,
 } from 'typeorm';
+import { Role } from './role.entity';
+import { UserRole } from './user-role.entity';
 
 @Entity('users')
 @Index('IDX_USERS_USERNAME', ['username'])
@@ -58,4 +63,15 @@ export class User {
     onUpdate: 'CURRENT_TIMESTAMP',
   })
   updatedAt: Date;
+
+  @OneToOne(() => UserRole, (userRole) => userRole.user, {
+    cascade: true,
+    onDelete: 'CASCADE',
+    eager: true,
+  })
+  @JoinColumn({ name: 'user_role_id' })
+  userRole: UserRole;
+
+  @Column({ name: 'user_role_id' })
+  userRoleId: string;
 }
